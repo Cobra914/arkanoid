@@ -72,6 +72,8 @@ class Partida(Escena):
 
     def __init__(self, pantalla):
         super().__init__(pantalla)
+        ruta_fondo = os.path.join('resources', 'images', 'background.jpg')
+        self.fondo = pg.image.load(ruta_fondo)
     
     def bucle_principal(self):
         super().bucle_principal()
@@ -83,8 +85,13 @@ class Partida(Escena):
                 if pg.QUIT == evento.type or (evento.type == pg.KEYDOWN and evento.key == pg.K_ESCAPE):
                     return True
 
-            self.pantalla.fill((0, 99, 0))
+            self.pintar_fondo()
             pg.display.flip()
+
+    def pintar_fondo(self):
+        # TODO mejorar como "rellenar" toda la pantalla con el fondo sin usar copio/pego
+        self.pantalla.fill((0, 0, 99))
+        self.pantalla.blit(self.fondo, (0,0))
 
 
 class MejoresJugadores(Escena):
