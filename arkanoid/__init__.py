@@ -1,2 +1,2 @@
-ANCHO = 500
+ANCHO = 600
 ALTO = 800
