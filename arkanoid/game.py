@@ -28,9 +28,3 @@ class Arkanoid:
             escena.bucle_principal()
 
         pg.quit()
-
-
-if __name__ == '__main__':
-    print('Arrancamos el juego desde game.py')
-    juego = Arkanoid()
-    juego.jugar()
