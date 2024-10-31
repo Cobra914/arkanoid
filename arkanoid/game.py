@@ -9,14 +9,14 @@ class Arkanoid:
         pg.init()
         self.pantalla = pg.display.set_mode((ANCHO, ALTO))
 
-        portada = Portada(self.pantalla)
-        partida = Partida(self.pantalla)
-        records = MejoresJugadores(self.pantalla)
+        # portada = Portada(self.pantalla)
+        # partida = Partida(self.pantalla)
+        # records = MejoresJugadores(self.pantalla)
 
         self.escenas = [
-            portada,
-            partida,
-            records,
+            Portada(self.pantalla),
+            Partida(self.pantalla),
+            MejoresJugadores(self.pantalla),
         ]
 
 
@@ -24,7 +24,12 @@ class Arkanoid:
         '''
         Bucle principal
         '''
+
+
         for escena in self.escenas:
-            escena.bucle_principal()
+            acabar_juego = escena.bucle_principal()
+            if acabar_juego:
+                print('La escena me pide que acabe el juego')
+                break
 
         pg.quit()
