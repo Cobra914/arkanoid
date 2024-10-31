@@ -6,6 +6,7 @@ import pygame as pg
 
 # mis dependencias
 from . import ALTO, ANCHO
+from .entidades import Raqueta
 
 
 class Escena:
@@ -74,6 +75,7 @@ class Partida(Escena):
         super().__init__(pantalla)
         ruta_fondo = os.path.join('resources', 'images', 'background.jpg')
         self.fondo = pg.image.load(ruta_fondo)
+        self.jugador = Raqueta()
     
     def bucle_principal(self):
         super().bucle_principal()
@@ -86,6 +88,9 @@ class Partida(Escena):
                     return True
 
             self.pintar_fondo()
+            
+            self.pantalla.blit(self.jugador.image, self.jugador.rect)
+
             pg.display.flip()
 
     def pintar_fondo(self):
