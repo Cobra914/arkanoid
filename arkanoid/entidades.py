@@ -40,5 +40,9 @@ class Raqueta(pg.sprite.Sprite):
         teclas_pulsadas = pg.key.get_pressed()
         if teclas_pulsadas[pg.K_LEFT]:
             self.rect.x -= self.velocidad
+            if self.rect.left < 0:
+                self.rect.left = 0
         if teclas_pulsadas[pg.K_RIGHT]:
             self.rect.x += self.velocidad
+            if self.rect.right > ANCHO:
+                self.rect.right = ANCHO
