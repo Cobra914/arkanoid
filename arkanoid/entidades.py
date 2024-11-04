@@ -14,6 +14,9 @@ class Raqueta(pg.sprite.Sprite):
     4. Volver a la posición inicial
     5.......
     '''
+
+    velocidad = 10
+
     def __init__(self):
         super().__init__()
 
@@ -33,3 +36,9 @@ class Raqueta(pg.sprite.Sprite):
         if self.contador > 2:
             self.contador = 0    
         self.image = self.imagenes[self.contador]
+
+        teclas_pulsadas = pg.key.get_pressed()
+        if teclas_pulsadas[pg.K_LEFT]:
+            self.rect.x -= self.velocidad
+        if teclas_pulsadas[pg.K_RIGHT]:
+            self.rect.x += self.velocidad
