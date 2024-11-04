@@ -1,7 +1,6 @@
 import os
 
 import pygame as pg
-from pygame.sprite import _Group
 
 from . import ALTO, ANCHO
 

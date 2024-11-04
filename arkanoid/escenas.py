@@ -77,12 +77,13 @@ class Partida(Escena):
         ruta_fondo = os.path.join('resources', 'images', 'background.jpg')
         self.fondo = pg.image.load(ruta_fondo)
         self.jugador = Raqueta()
-        self.muro = []
+        self.muro = pg.sprite.Group()
     
     def bucle_principal(self):
         super().bucle_principal()
     
         salir = False
+        self.crear_muro()
 
         while not salir:
             self.reloj.tick(FPS)
@@ -91,7 +92,7 @@ class Partida(Escena):
                     return True
 
             self.pintar_fondo()
-            self.pintar_muro()
+            self.muro.draw(self.pantalla)
             
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
@@ -103,14 +104,19 @@ class Partida(Escena):
         self.pantalla.fill((0, 0, 99))
         self.pantalla.blit(self.fondo, (0,0))
 
-    def pintar_muro(self):
-        filas = 4
-        columnas = 6
+    def crear_muro(self):
+        filas = 3
+        columnas = 4
+        margen_superior = 20
 
         for fila in range(filas):
             for col in range(columnas):
                 ladrillo = Ladrillo()
-                self.muro.append(ladrillo)
+                ancho_muro = ladrillo.rect.width * columnas
+                margen_izquierdo = (ANCHO - ancho_muro) / 2
+                ladrillo.rect.x = ladrillo.rect.width * col + margen_izquierdo
+                ladrillo.rect.y = ladrillo.rect.height * fila + margen_superior
+                self.muro.add(ladrillo)
 
 
 
