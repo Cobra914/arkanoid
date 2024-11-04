@@ -5,7 +5,7 @@ import os
 import pygame as pg
 
 # mis dependencias
-from . import ALTO, ANCHO
+from . import ALTO, ANCHO, FPS
 from .entidades import Raqueta
 
 
@@ -13,6 +13,7 @@ class Escena:
 
     def __init__(self, pantalla):
         self.pantalla = pantalla
+        self.reloj = pg.time.Clock()
         
 
     def bucle_principal(self):
@@ -83,12 +84,14 @@ class Partida(Escena):
         salir = False
 
         while not salir:
+            self.reloj.tick(FPS)
             for evento in pg.event.get():
                 if pg.QUIT == evento.type or (evento.type == pg.KEYDOWN and evento.key == pg.K_ESCAPE):
                     return True
 
             self.pintar_fondo()
             
+            self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
 
             pg.display.flip()
