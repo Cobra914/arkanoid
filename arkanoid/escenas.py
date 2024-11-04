@@ -6,7 +6,7 @@ import pygame as pg
 
 # mis dependencias
 from . import ALTO, ANCHO, FPS
-from .entidades import Ladrillo, Raqueta
+from .entidades import Ladrillo, Pelota, Raqueta
 
 
 class Escena:
@@ -78,6 +78,7 @@ class Partida(Escena):
         self.fondo = pg.image.load(ruta_fondo)
         self.jugador = Raqueta()
         self.muro = pg.sprite.Group()
+        self.pelota = Pelota(self.jugador)
     
     def bucle_principal(self):
         super().bucle_principal()
@@ -96,6 +97,9 @@ class Partida(Escena):
             
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
+
+            self.pelota.update()
+            self.pantalla.blit(self.pelota.image, self.pelota.rect)
 
             pg.display.flip()
 
