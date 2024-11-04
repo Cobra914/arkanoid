@@ -1,6 +1,7 @@
 import os
 
 import pygame as pg
+from pygame.sprite import _Group
 
 from . import ALTO, ANCHO
 
@@ -46,3 +47,17 @@ class Raqueta(pg.sprite.Sprite):
             self.rect.x += self.velocidad
             if self.rect.right > ANCHO:
                 self.rect.right = ANCHO
+
+
+class Ladrillo(pg.sprite.Sprite):
+
+    def __init__(self):
+        super().__init__()
+
+        ruta_verde = os.path.join('resources', 'images', 'greenTile.png')
+        self.image = pg.image.load(ruta_verde)
+        self.rect = self.image.get_rect()
+        
+
+    def update(self):
+        pass

@@ -6,7 +6,7 @@ import pygame as pg
 
 # mis dependencias
 from . import ALTO, ANCHO, FPS
-from .entidades import Raqueta
+from .entidades import Ladrillo, Raqueta
 
 
 class Escena:
@@ -77,6 +77,7 @@ class Partida(Escena):
         ruta_fondo = os.path.join('resources', 'images', 'background.jpg')
         self.fondo = pg.image.load(ruta_fondo)
         self.jugador = Raqueta()
+        self.muro = []
     
     def bucle_principal(self):
         super().bucle_principal()
@@ -90,6 +91,7 @@ class Partida(Escena):
                     return True
 
             self.pintar_fondo()
+            self.pintar_muro()
             
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
@@ -100,6 +102,16 @@ class Partida(Escena):
         # TODO mejorar como "rellenar" toda la pantalla con el fondo sin usar copio/pego
         self.pantalla.fill((0, 0, 99))
         self.pantalla.blit(self.fondo, (0,0))
+
+    def pintar_muro(self):
+        filas = 4
+        columnas = 6
+
+        for fila in range(filas):
+            for col in range(columnas):
+                ladrillo = Ladrillo()
+                self.muro.append(ladrillo)
+
 
 
 class MejoresJugadores(Escena):
