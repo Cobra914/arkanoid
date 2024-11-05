@@ -85,12 +85,15 @@ class Partida(Escena):
     
         salir = False
         self.crear_muro()
+        juego_iniciado = False
 
         while not salir:
             self.reloj.tick(FPS)
             for evento in pg.event.get():
                 if pg.QUIT == evento.type or (evento.type == pg.KEYDOWN and evento.key == pg.K_ESCAPE):
                     return True
+                if evento.type == pg.KEYDOWN and evento.key == pg.K_SPACE:
+                    juego_iniciado = True
 
             self.pintar_fondo()
             self.muro.draw(self.pantalla)
@@ -98,7 +101,7 @@ class Partida(Escena):
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
 
-            self.pelota.update()
+            self.pelota.update(juego_iniciado)
             self.pantalla.blit(self.pelota.image, self.pelota.rect)
 
             pg.display.flip()
