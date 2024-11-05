@@ -108,7 +108,7 @@ class Partida(Escena):
 
             if len(golpeados) > 0:
                 for ladrillo in golpeados:
-                    ladrillo.update(self.muro)
+                    ladrillo.update()
                 self.pelota.vel_y = -self.pelota.vel_y
 
             pg.display.flip()
@@ -119,7 +119,7 @@ class Partida(Escena):
         self.pantalla.blit(self.fondo, (0,0))
 
     def crear_muro(self):
-        filas = 3
+        filas = 4
         columnas = 4
         margen_superior = 20
         tipo = None
