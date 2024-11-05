@@ -90,7 +90,7 @@ class Pelota(pg.sprite.Sprite):
                 self.pierdes()
                 self.reset()
 
-            if self.rect.colliderect(self.raqueta):
+            if pg.sprite.collide_mask(self, self.raqueta):
                 self.init_velocidades()
 
     def pierdes(self):
