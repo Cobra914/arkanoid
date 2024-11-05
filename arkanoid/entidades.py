@@ -1,8 +1,9 @@
 import os
+from random import randint
 
 import pygame as pg
 
-from . import ALTO, ANCHO
+from . import ALTO, ANCHO, VEL_MAX, VEL_MIN_Y
 
 
 
@@ -64,9 +65,6 @@ class Ladrillo(pg.sprite.Sprite):
 
 class Pelota(pg.sprite.Sprite):
 
-    vel_y = -10
-    vel_x = -13
-
     def __init__(self, raqueta):
         super().__init__()
 
@@ -74,6 +72,7 @@ class Pelota(pg.sprite.Sprite):
 
         self.image = pg.image.load(ruta_pelota)
         self.raqueta = raqueta
+        self.init_velocidades()
 
     def update(self, partida_empezada):
         if not partida_empezada:
@@ -87,3 +86,19 @@ class Pelota(pg.sprite.Sprite):
             if self.rect.top < 0:
                 self.vel_y = -self.vel_y
 
+            if self.rect.top > ALTO:
+                self.pierdes()
+                self.reset()
+
+            if self.rect.colliderect(self.raqueta):
+                self.init_velocidades()
+
+    def pierdes(self):
+        print('pierdes una vida')
+
+    def reset(self):
+        print('La pelota debe volver a su posición inicial')
+
+    def init_velocidades(self):
+        self.vel_x = randint(-VEL_MAX, VEL_MAX) 
+        self.vel_y = randint(-VEL_MAX, VEL_MIN_Y)
