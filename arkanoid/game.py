@@ -25,7 +25,6 @@ class Arkanoid:
         Bucle principal
         '''
 
-
         for escena in self.escenas:
             acabar_juego = escena.bucle_principal()
             if acabar_juego:

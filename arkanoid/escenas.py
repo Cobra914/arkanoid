@@ -106,7 +106,7 @@ class Partida(Escena):
             self.pantalla.blit(self.pelota.image, self.pelota.rect)
 
             if self.pelota.he_perdido:
-               self.contador_vidas.perder_vida()
+               salir = self.contador_vidas.perder_vida()
                juego_iniciado = False
                self.pelota.he_perdido = False
 
