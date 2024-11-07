@@ -6,7 +6,7 @@ import pygame as pg
 
 # mis dependencias
 from . import ALTO, ANCHO, FPS, VIDAS_INICIALES
-from .entidades import Ladrillo, Pelota, Raqueta, ContadorVidas
+from .entidades import Ladrillo, Pelota, Raqueta, ContadorVidas, Marcador
 
 
 class Escena:
@@ -80,6 +80,7 @@ class Partida(Escena):
         self.muro = pg.sprite.Group()
         self.pelota = Pelota(self.jugador)
         self.contador_vidas = ContadorVidas(VIDAS_INICIALES)
+        self.marcador = Marcador()
     
     def bucle_principal(self):
         super().bucle_principal()
@@ -98,6 +99,8 @@ class Partida(Escena):
 
             self.pintar_fondo()
             self.muro.draw(self.pantalla)
+
+            self.marcador.pintame(self.pantalla)
             
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)

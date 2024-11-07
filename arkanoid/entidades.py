@@ -3,7 +3,7 @@ from random import randint
 
 import pygame as pg
 
-from . import ALTO, ANCHO, VEL_MAX, VEL_MIN_Y
+from . import ALTO, ANCHO, VEL_MAX, VEL_MIN_Y, TAM_LETRA_MARCADOR, COLOR_MARCADOR
 
 
 
@@ -127,3 +127,28 @@ class ContadorVidas:
     def pintar(self):
         # TODO pintar el contador de vidas en la escena de la partida
         pass
+
+
+class Marcador:
+
+    def __init__(self):
+        self.preparar_tipografia()
+        self.reset()
+
+    def preparar_tipografia(self):
+        tipos = pg.font.get_fonts()
+        letra = 'luminari'
+        if letra not in tipos:
+            letra = pg.font.get_default_font()
+        self.tipo_letra = pg.font.SysFont(letra, TAM_LETRA_MARCADOR, True)
+
+    def reset(self):
+        self.puntuacion = 0
+
+    def pintame(self, pantalla):
+        puntuacion = str(self.puntuacion)
+        img_texto = self.tipo_letra.render(puntuacion, True, COLOR_MARCADOR)
+        alto_img_texto = img_texto.get_height()
+        x = ANCHO - ANCHO
+        y = ALTO - (alto_img_texto * 2)
+        pantalla.blit(img_texto, (x, y))
