@@ -132,24 +132,21 @@ class Partida(Escena):
 
     def crear_muro(self):
         filas = 2
-        columnas = 2
+        columnas = 6 
         margen_superior = 20
-        puntuacion_ladrillo_verde = 10
-        puntuacion_ladrillo_rojo = 20
+        valor_ladrillo_verde = 10
         tipo = None
-        ladrillo_puntuacion = (filas * puntuacion_ladrillo_verde) + puntuacion_ladrillo_verde
+        ladrillo_puntuacion = 0
         
 
         for fila in range(filas):
-            if tipo == Ladrillo.VERDE:
-                ladrillo_puntuacion =  ladrillo_puntuacion - puntuacion_ladrillo_verde
-            if tipo == Ladrillo.ROJO:
-                ladrillo_puntuacion = (ladrillo_puntuacion * 2) - puntuacion_ladrillo_rojo
             for col in range(columnas):
                 if tipo == Ladrillo.ROJO:
                     tipo = Ladrillo.VERDE
+                    ladrillo_puntuacion = (filas - fila) * valor_ladrillo_verde
                 else:
                     tipo = Ladrillo.ROJO
+                    ladrillo_puntuacion = (filas - fila) * valor_ladrillo_verde * (Ladrillo.ROJO + 1)
 
                 ladrillo = Ladrillo(tipo, ladrillo_puntuacion)
                 ancho_muro = ladrillo.rect.width * columnas
