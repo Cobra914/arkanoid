@@ -115,9 +115,12 @@ class Partida(Escena):
 
             golpeados = pg.sprite.spritecollide(self.pelota, self.muro, False)
 
+
             if len(golpeados) > 0:
                 for ladrillo in golpeados:
-                    ladrillo.update()
+                    puntuacion_ladrillo = 0
+                    puntuacion_ladrillo = ladrillo.update()
+                self.marcador.incrementar(puntuacion_ladrillo)
                 self.pelota.vel_y = -self.pelota.vel_y
 
             pg.display.flip()
@@ -128,18 +131,27 @@ class Partida(Escena):
         self.pantalla.blit(self.fondo, (0,0))
 
     def crear_muro(self):
-        filas = 4
-        columnas = 4
+        filas = 2
+        columnas = 2
         margen_superior = 20
+        puntuacion_ladrillo_verde = 10
+        puntuacion_ladrillo_rojo = 20
         tipo = None
+        ladrillo_puntuacion = (filas * puntuacion_ladrillo_verde) + puntuacion_ladrillo_verde
+        
 
         for fila in range(filas):
+            if tipo == Ladrillo.VERDE:
+                ladrillo_puntuacion =  ladrillo_puntuacion - puntuacion_ladrillo_verde
+            if tipo == Ladrillo.ROJO:
+                ladrillo_puntuacion = (ladrillo_puntuacion * 2) - puntuacion_ladrillo_rojo
             for col in range(columnas):
                 if tipo == Ladrillo.ROJO:
                     tipo = Ladrillo.VERDE
                 else:
                     tipo = Ladrillo.ROJO
-                ladrillo = Ladrillo(tipo)
+
+                ladrillo = Ladrillo(tipo, ladrillo_puntuacion)
                 ancho_muro = ladrillo.rect.width * columnas
                 margen_izquierdo = (ANCHO - ancho_muro) / 2
                 ladrillo.rect.x = ladrillo.rect.width * col + margen_izquierdo

@@ -56,10 +56,11 @@ class Ladrillo(pg.sprite.Sprite):
     ROJO_ROTO = 2
     IMG_LADRILLO = ['greenTile.png', 'redTile.png', 'redTileBreak.png']
 
-    def __init__(self, color=VERDE):
+    def __init__(self, color=VERDE, puntuacion_ladrillo=0):
         super().__init__()
 
         self.tipo = color
+        self.puntuacion_ladrillo = puntuacion_ladrillo
         self.imagenes = []
         for img in self.IMG_LADRILLO:
             ruta = os.path.join('resources', 'images', img)
@@ -75,7 +76,9 @@ class Ladrillo(pg.sprite.Sprite):
             self.tipo = Ladrillo.ROJO_ROTO
         else:
             self.kill()
+            return self.puntuacion_ladrillo
         self.image = self.imagenes[self.tipo]
+        return 0
 
 
 class Pelota(pg.sprite.Sprite):
@@ -152,3 +155,6 @@ class Marcador:
         x = ANCHO - ANCHO
         y = ALTO - (alto_img_texto * 2)
         pantalla.blit(img_texto, (x, y))
+
+    def incrementar(self, puntuacion_ladrillo_destruido):
+        self.puntuacion = self.puntuacion + puntuacion_ladrillo_destruido
