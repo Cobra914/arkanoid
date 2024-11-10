@@ -28,7 +28,7 @@ class Raqueta(pg.sprite.Sprite):
 
         self.contador = 0
         self.image = self.imagenes[self.contador]
-        self.rect = self.image.get_rect(midbottom=(ANCHO/2, ALTO-25))
+        self.rect = self.image.get_rect(midbottom=(ANCHO/2, ALTO-50))
 
     def update(self):
         # 00 -> 01 -> 02 -> 00...
@@ -128,7 +128,6 @@ class ContadorVidas:
 
     def perder_vida(self):
         self.vidas.pop()
-        print('has perdido una vida, te quedan:', len(self.vidas))
         return len(self.vidas) == 0
 
     def pintar(self, pantalla):
@@ -136,7 +135,6 @@ class ContadorVidas:
         for vida in self.vidas:
             vida.pintar_vida(pantalla, contador)
             contador += 1
-
 
 
 class Vida:
