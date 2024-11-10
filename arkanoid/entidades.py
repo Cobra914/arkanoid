@@ -135,7 +135,7 @@ class ContadorVidas:
         contador = 0
         for vida in self.vidas:
             vida.pintar_vida(pantalla, contador)
-            contador =+ 1
+            contador += 1
 
 
 
