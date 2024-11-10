@@ -120,16 +120,40 @@ class Pelota(pg.sprite.Sprite):
 
 class ContadorVidas:
 
-    def __init__(self, vidas_iniciales):
-        self.vidas = vidas_iniciales
+    def __init__(self, vidas_iniciales, jugador):
+        self.vidas = []
+        for vida in range(vidas_iniciales):
+            vida = Vida(jugador)
+            self.vidas.append(vida)
 
     def perder_vida(self):
-        self.vidas -= 1
-        return self.vidas == 0
+        self.vidas.pop()
+        print('has perdido una vida, te quedan:', len(self.vidas))
+        return len(self.vidas) == 0
 
-    def pintar(self):
-        # TODO pintar el contador de vidas en la escena de la partida
-        pass
+    def pintar(self, pantalla):
+        contador = 0
+        for vida in self.vidas:
+            vida.pintar_vida(pantalla, contador)
+            contador =+ 1
+
+
+
+class Vida:
+    
+    def __init__(self, jugador):
+        self.image = jugador.image
+        self.rect = self.image.get_rect()
+        self.ancho = self.rect.width
+        self.alto = self.rect.height
+
+    def pintar_vida(self, pantalla, contador):
+        margen_izq = 10
+        margen_inf = 10
+        espacio_entre_jugador = 5
+        x = self.ancho * contador + margen_izq + espacio_entre_jugador * contador
+        y = ALTO - margen_inf - self.alto
+        pantalla.blit(self.image, (x,y))
 
 
 class Marcador:

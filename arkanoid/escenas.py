@@ -79,7 +79,7 @@ class Partida(Escena):
         self.jugador = Raqueta()
         self.muro = pg.sprite.Group()
         self.pelota = Pelota(self.jugador)
-        self.contador_vidas = ContadorVidas(VIDAS_INICIALES)
+        self.contador_vidas = ContadorVidas(VIDAS_INICIALES, self.jugador)
         self.marcador = Marcador()
     
     def bucle_principal(self):
@@ -99,17 +99,20 @@ class Partida(Escena):
 
             self.pintar_fondo()
             self.muro.draw(self.pantalla)
-
-            self.marcador.pintame(self.pantalla)
             
+            self.contador_vidas.pintar(self.pantalla)
+
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
+
+            self.marcador.pintame(self.pantalla)
 
             self.pelota.update(juego_iniciado)
             self.pantalla.blit(self.pelota.image, self.pelota.rect)
 
             if self.pelota.he_perdido:
                salir = self.contador_vidas.perder_vida()
+               self.contador_vidas.pintar(self.pantalla)
                juego_iniciado = False
                self.pelota.he_perdido = False
 
